@@ -130,7 +130,6 @@ function clearClasses() {
 }
 
 function showFinalResult() {
-	console.log(points.innerText);
 	if (Number(points.innerText) < 6) {
 		resModal.innerHTML = `<p class='text-danger'>Your final points: ${points.innerText}. Sorry, you loose. 😫😥</p>`;
 	} else if (Number(points.innerText) >= 6) {
