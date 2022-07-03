@@ -4,7 +4,9 @@ let turnNumber = document.getElementById("turn-number"),
 	nameInput = document.getElementById("name-input"),
 	answer = document.getElementById("answer"),
 	check = document.getElementById("checkBtn"),
-	nextBtn = document.getElementById("nextBtn");
+	nextBtn = document.getElementById("nextBtn"),
+	resModal = document.getElementById("res-modal"),
+	triggerBtn = document.getElementById("trigger-btn");
 
 let data = [],
 	countryNames = [],
@@ -59,7 +61,11 @@ function handleCheck(e) {
 	if (nameInput.value.toLowerCase() === country.name.common.toLowerCase()) {
 		points.innerText = Number(points.innerText) + 1;
 		!answer.classList.contains("success") ? answer.classList.add("success") : null;
-		answer.innerText = successText[Math.floor(Math.random() * (successText.length - 1))];
+		answer.innerText =
+			successText[Math.floor(Math.random() * (successText.length - 1))] + " +1 point";
+
+		// set result to modal
+		showFinalResult();
 	} else {
 		!answer.classList.contains("fail") ? answer.classList.add("fail") : null;
 
@@ -73,6 +79,7 @@ function handleCheck(e) {
 // handle the restart functionality
 function handleRestart() {
 	setCountry();
+	clearClasses();
 	turnNumber.innerText = "1";
 	nextBtn.disabled = false;
 	checkBtn.disabled = false;
@@ -80,6 +87,8 @@ function handleRestart() {
 	nameInput.value = "Select country from menu";
 	points.innerText = "0";
 	answer.innerText = "Take time, Think well";
+	showFinalResult();
+	triggerBtn.classList.add("d-none");
 }
 
 // set country flag and store name for later
@@ -90,20 +99,38 @@ function setCountry() {
 
 function handleNext(e) {
 	if (turnNumber.innerText < 10) {
-		e.target.disabled = false;
 		checkBtn.disabled = false;
 		nameInput.disabled = false;
 
 		turnNumber.innerText = Number(turnNumber.innerText) + 1;
 
-		// clear success and fail classes
-		answer.classList.contains("success") ? answer.classList.remove("success") : null;
-		answer.classList.contains("fail") ? answer.classList.remove("fail") : null;
+		if (Number(turnNumber.innerText) === 10) {
+			nextBtn.disabled = true;
+			triggerBtn.classList.remove("d-none");
+		}
+
+		clearClasses();
 
 		answer.innerText = "Take time, Think well";
-		
+
 		setCountry();
+		showFinalResult();
 	} else {
-		e.target.disabled = true;
+		nextBtn.disabled = true;
+	}
+}
+
+function clearClasses() {
+	// clear success and fail classes
+	answer.classList.contains("success") ? answer.classList.remove("success") : null;
+	answer.classList.contains("fail") ? answer.classList.remove("fail") : null;
+}
+
+function showFinalResult() {
+	console.log(points.innerText);
+	if (Number(points.innerText) < 6) {
+		resModal.innerHTML = `<p class='text-danger'>Your final points: ${points.innerText}. Sorry, you loose. 😫😥</p>`;
+	} else if (Number(points.innerText) >= 6) {
+		resModal.innerHTML = `<p class='text-success'>Your final points: ${points.innerText}. Excellent, you win. 😊🎉🎊</p>`;
 	}
 }
