@@ -1,3 +1,5 @@
+const pageLoader = document.getElementById("page-loader");
+
 let turnNumber = document.getElementById("turn-number"),
 	points = document.getElementById("points"),
 	flag = document.getElementById("flag"),
@@ -27,6 +29,7 @@ let successText = [
 axios
 	.get("https://restcountries.com/v3/all?fields=name,flags")
 	.then((res) => {
+		pageLoader.classList.remove("wrapper");
 		data = res.data;
 		countryNames = data.map((country) => country.name.common).sort();
 

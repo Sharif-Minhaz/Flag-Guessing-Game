@@ -12,9 +12,23 @@
 			integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 			crossorigin="anonymous"
 		/>
+		<link rel="stylesheet" href="./styles/loader.css">
 		<link rel="stylesheet" href="./styles/style.css" />
 	</head>
 	<body>
+		<!-- page loader -->
+		<section id="page-loader" class="wrapper">
+			<div class="card-loader">
+				<div class="loader">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+		</section>
+
+		<!-- main container -->
 		<div class="container">
 			<div class="card col-lg-6 col-md-8 col-sm-10 col-12 m-auto mt-3">
 				<div class="card-header d-flex align-items-center justify-content-between">
@@ -26,12 +40,7 @@
 					>
 				</div>
 				<div class="card-body text-center pt-4">
-					<img
-						id="flag"
-						class="edge-size mt-2"
-						src="https://flagcdn.com/w320/pk.png"
-						alt="country_flag"
-					/>
+					<img id="flag" class="edge-size mt-2" src="" alt="country_flag" />
 				</div>
 				<!-- dropdown select box -->
 				<div class="d-flex gap-2 p-3">
@@ -110,7 +119,7 @@
 							aria-label="Close"
 							onclick="handleRestart();"
 						>
-							Restart
+							Retry
 						</button>
 					</div>
 				</div>
