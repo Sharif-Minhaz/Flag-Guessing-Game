@@ -18,26 +18,25 @@
 		<div class="container">
 			<div class="card col-lg-6 col-md-8 col-sm-10 col-12 m-auto mt-3">
 				<div class="card-header d-flex align-items-center justify-content-between">
-					<span class="fs-4 text-uppercase">Guess The Flag: 1/10</span>
-					<span class="input-group-text" id="basic-addon2">Point(s): 0 </span>
+					<span class="fs-4 text-uppercase">Guess The Flag: <span id="turn-number">1</span>/10</span>
+					<span class="input-group-text" id="basic-addon2">Point(s): <span id="points">0</span> </span>
 				</div>
 				<div class="card-body text-center pt-4">
-					<img class="edge-size mt-2" src="https://flagcdn.com/w320/pk.png" alt="country_flag">
+					<img id="flag" class="edge-size mt-2" src="https://flagcdn.com/w320/pk.png" alt="country_flag">
 				</div>
+				<!-- dropdown select box -->
 				<div class="d-flex gap-2 p-3">
-					<select class="form-select" aria-label=".form-select-sm example">
+					<select id="name-input" class="form-select" aria-label=".form-select-sm example">
 						<option selected>Select country from menu</option>
-						<option value="1">One</option>
-						<option value="2">Two</option>
 					</select>
-					<button class="btn btn-primary text-nowrap">Check</button>
+					<button class="btn btn-primary text-nowrap" id="checkBtn" onclick="handleCheck(event);">Check</button>
 				</div>
 				<hr class="mb-0">
 				<div class="d-flex justify-content-between align-items-center p-3">
-					<span class="lead">Wrong answer. It's Argentina </span>
+					<span class="lead" id="answer">Take time, Think well</span>
 					<div class="d-flex gap-2">
-						<button class="btn btn-info">Restart</button>
-						<button class="btn btn-secondary">Next <b> > </b></button>
+						<button class="btn btn-info" onclick="handleRestart();">Restart</button>
+						<button class="btn btn-secondary" id="nextBtn" onclick="handleNext(event);">Next <b> > </b></button>
 					</div>
 				</div>
 			</div>
