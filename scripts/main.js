@@ -12,11 +12,12 @@ let turnNumber = document.getElementById("turn-number"),
 
 let data = [],
 	countryNames = [],
+	optionsIndex = [],
 	country;
 
 let successText = [
 		"Wow!",
-		"Amazing you get it",
+		"Amazing! well done",
 		"Awesome!",
 		"Brilliant!",
 		"You beauty :)",
@@ -31,12 +32,7 @@ axios
 	.then((res) => {
 		pageLoader.classList.remove("wrapper");
 		data = res.data;
-		countryNames = data.map((country) => country.name.common).sort();
-
-		// set options
-		countryNames.forEach((countryName) => {
-			setOptions(countryName);
-		});
+		countryNames = data.map((country) => country.name.common);
 
 		// set country
 		setCountry();
@@ -45,13 +41,54 @@ axios
 		console.error(err);
 	});
 
-// add option dynamically in the dropdown
+// get random index between 0 - 249
+function getRandomNumber() {
+	return Math.floor(Math.random() * data.length); // data.length = 250
+}
+
+// add five option including the correct one
+function addFiveOptions(countryNames) {
+	// first cleared the existing options
+	removeOptions();
+
+	// get random 5 unique options
+	const INIT_OPT = 5; // default option count
+	while (optionsIndex.length < INIT_OPT) {
+		let index = getRandomNumber();
+		// push only when the index is unique
+		if (!optionsIndex.includes(index)) {
+			optionsIndex.push(index);
+		}
+	}
+
+	// put the original answer's index in the optionIndex array
+	optionsIndex.splice(Math.floor(Math.random() * 6), 0, country.index);
+
+	// set single option every time
+	optionsIndex.forEach((i) => {
+		setOptions(countryNames[i]);
+	});
+}
+
+// add one option dynamically in the dropdown
 function setOptions(countryName) {
 	nameInput.options.add(new Option(countryName, countryName.toLowerCase()));
 }
 
+// remove existed options
+function removeOptions() {
+	// reset index;
+	optionsIndex = [];
+
+	// remove all options except the first one
+	while (nameInput.options.length > 1) {
+		nameInput.removeChild(nameInput.options[1]);
+	}
+}
+
 // handle the user input and match it
 function handleCheck(e) {
+	// check for unselect case
 	if (nameInput.value === "Select country from menu") {
 		alert("Select a country to check!");
 		return 0;
@@ -96,15 +133,22 @@ function handleRestart() {
 
 // set country flag and store name for later
 function setCountry() {
-	country = data[Math.floor(Math.random() * (data.length - 1))];
+	let index = getRandomNumber();
+	country = data[index];
+	country.index = index;
 	flag.src = country.flags[1];
+
+	// add five options
+	addFiveOptions(countryNames);
 }
 
+// handle the next button
 function handleNext(e) {
 	if (turnNumber.innerText < 10) {
 		checkBtn.disabled = false;
 		nameInput.disabled = false;
 
+		// increase turn number every time
 		turnNumber.innerText = Number(turnNumber.innerText) + 1;
 
 		if (Number(turnNumber.innerText) === 10) {
@@ -112,6 +156,7 @@ function handleNext(e) {
 			triggerBtn.classList.remove("d-none");
 		}
 
+		// clear the classes
 		clearClasses();
 
 		answer.innerText = "Take time, Think well";
@@ -123,12 +168,14 @@ function handleNext(e) {
 	}
 }
 
+// clear classes when resetting or going next flag
 function clearClasses() {
 	// clear success and fail classes
-	answer.classList.contains("success") ? answer.classList.remove("success") : null;
-	answer.classList.contains("fail") ? answer.classList.remove("fail") : null;
+	answer.classList.contains("success") && answer.classList.remove("success");
+	answer.classList.contains("fail") && answer.classList.remove("fail");
 }
 
+// handle final result and modal
 function showFinalResult() {
 	if (Number(points.innerText) < 6) {
 		resModal.innerHTML = `<p class='text-danger'>Your final points: ${points.innerText}. Sorry, you loose. 😫😥</p>`;
