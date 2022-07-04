@@ -13,3 +13,24 @@ body {
 .fail {
 	color: red;
 }
+
+@media (max-width: 490px) {
+	#flag {
+		width: 100%;
+	}
+}
+@media (max-width: 398px) {
+	span.fs-4 {
+		font-size: 17px !important;
+		margin-right: 7px;
+	}
+	#answer {
+		margin-bottom: 20px;
+	}
+	#basic-addon2 {
+		padding: 3px 4px 3px 4px;
+	}
+	#details-area {
+		flex-direction: column !important;
+	}
+}
