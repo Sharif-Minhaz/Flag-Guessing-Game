@@ -56,7 +56,7 @@ function addFiveOptions(countryNames) {
 	while (optionsIndex.length < INIT_OPT) {
 		let index = getRandomNumber();
 		// push only when the index is unique
-		if (!optionsIndex.includes(index)) {
+		if (!optionsIndex.includes(index) && !optionsIndex.includes(country.index)) {
 			optionsIndex.push(index);
 		}
 	}

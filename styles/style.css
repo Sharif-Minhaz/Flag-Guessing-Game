@@ -14,6 +14,11 @@ body {
 	color: red;
 }
 
+#res-modal p {
+	line-height: 30px;
+	margin-bottom: 0px;
+}
+
 @media (max-width: 490px) {
 	#flag {
 		width: 100%;
