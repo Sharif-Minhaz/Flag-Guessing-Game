@@ -16,7 +16,7 @@ let data = [],
 	country;
 
 let successText = [
-		"Wow!",
+		"Wow! amazing",
 		"Amazing! well done",
 		"Awesome!",
 		"Brilliant!",
@@ -100,17 +100,17 @@ function handleCheck(e) {
 	// verify the answer
 	if (nameInput.value.toLowerCase() === country.name.common.toLowerCase()) {
 		points.innerText = Number(points.innerText) + 1;
-		!answer.classList.contains("success") ? answer.classList.add("success") : null;
+		!answer.classList.contains("success") && answer.classList.add("success");
 		answer.innerText =
-			successText[Math.floor(Math.random() * (successText.length - 1))] + " +1 point";
+			successText[Math.floor(Math.random() * (successText.length))] + " (+1 point)";
 
 		// set result to modal
 		showFinalResult();
 	} else {
-		!answer.classList.contains("fail") ? answer.classList.add("fail") : null;
+		!answer.classList.contains("fail") && answer.classList.add("fail");
 
 		answer.innerText =
-			failureText[Math.floor(Math.random() * (failureText.length - 1))] +
+			failureText[Math.floor(Math.random() * (failureText.length))] +
 			", it's " +
 			country.name.common;
 	}
@@ -124,7 +124,7 @@ function handleRestart() {
 	nextBtn.disabled = false;
 	checkBtn.disabled = false;
 	nameInput.disabled = false;
-	nameInput.value = "Select country from menu";
+	nameInput.value = "--Select country--";
 	points.innerText = "0";
 	answer.innerText = "Take time, Think well";
 	showFinalResult();
@@ -178,8 +178,8 @@ function clearClasses() {
 // handle final result and modal
 function showFinalResult() {
 	if (Number(points.innerText) < 6) {
-		resModal.innerHTML = `<p class='text-danger'>Your final points: ${points.innerText}. Sorry, you loose. 😫😥</p>`;
+		resModal.innerHTML = `<p class='text-danger'>Your final points is ${points.innerText}. Sorry, you loose. 😫😥</p>`;
 	} else if (Number(points.innerText) >= 6) {
-		resModal.innerHTML = `<p class='text-success'>Your final points: ${points.innerText}. Excellent, you win. 😊🎉🎊</p>`;
+		resModal.innerHTML = `<p class='text-success'>Your final points is ${points.innerText}. Excellent, you win. 😊🎉🎊</p>`;
 	}
 }
