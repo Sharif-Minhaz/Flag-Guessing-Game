@@ -24,7 +24,7 @@ let successText = [
 		"Outstanding!!!",
 		"Fantastic!!",
 	],
-	failureText = ["Wrong answer :(", "Oops, wrong answer", "Incorrect!", "Wrong, take your time"];
+	failureText = ["Wrong answer!!", "Oops, wrong answer", "Incorrect!", "Wrong, take your time"];
 
 // Axios [fetched data with api]
 axios
@@ -89,7 +89,7 @@ function removeOptions() {
 // handle the user input and match it
 function handleCheck(e) {
 	// check for unselect case
-	if (nameInput.value === "Select country from menu") {
+	if (nameInput.value === "--Select country--") {
 		alert("Select a country to check!");
 		return 0;
 	}
