@@ -178,7 +178,7 @@ function clearClasses() {
 // handle final result and modal
 function showFinalResult() {
 	if (Number(points.innerText) < 6) {
-		resModal.innerHTML = `<p class='text-danger'>Your final points is ${points.innerText}. Sorry, you loose. 😫😥</p>`;
+		resModal.innerHTML = `<p class='text-danger'>Your final points is ${points.innerText}. Sorry, you lose. 😫😥</p>`;
 	} else if (Number(points.innerText) >= 6) {
 		resModal.innerHTML = `<p class='text-success'>Your final points is ${points.innerText}. Excellent, you win. 😊🎉🎊</p>`;
 	}
